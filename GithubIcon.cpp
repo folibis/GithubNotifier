@@ -75,6 +75,8 @@ void GithubIcon::onDataReady(const QByteArray &data)
 
         QJsonDocument doc = QJsonDocument::fromJson(data, &error);
 
+        qint64 id = 0;
+
         if(!doc.isNull() && !doc.isEmpty())
         {
             if(doc.isArray())
@@ -93,11 +95,18 @@ void GithubIcon::onDataReady(const QByteArray &data)
                     }
                     else
                     {
-                        if(lastID == data.ID)
+                        if(lastID >= data.ID)
                         {
                             break;
                         }
+
                         messages.append(data);
+
+                        if(data.ID > id)
+                        {
+                            id = data.ID;
+                            settings.SetLastID(id);
+                        }
                     }
                 }
             }
@@ -180,7 +189,7 @@ void GithubIcon::PopupMessage(const QVector<GithubIcon::MessageData> &messages)
 
     foreach(const GithubIcon::MessageData &message, messages)
     {
-        str += message.title + "\r\n";
+        str += "Title: " + message.title + "\r\n";
         str += "Reason: " + Settings::Reason2String(message.reason) + "\r\n";
         str += "Repository: " + message.repository + "\r\n";
         str += "Date: " + message.datetime.toString("dd.MM.yyyy") + "\r\n";
