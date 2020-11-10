@@ -39,7 +39,7 @@ bool Settings::Init()
     m_url = m_settings.value("settings/url", "").toUrl();
     m_reasons = static_cast<Reasons>(m_settings.value("settings/reasons", "").toInt());
     m_runOnStartup = m_settings.value("settings/runonstartup", "").toBool();
-    m_refreshRate = m_settings.value("settings/refreshrate", "").toBool();
+    m_refreshRate = m_settings.value("settings/refreshrate", "").toInt();
     m_provideLink = m_settings.value("settings/providelink", "").toBool();
     m_lastID = m_settings.value("settings/lastid", "").toLongLong();
 
