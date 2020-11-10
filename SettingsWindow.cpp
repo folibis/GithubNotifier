@@ -68,5 +68,19 @@ void SettingsWindow::on_pushButton_clicked()
     settings.SetProvideLink(ui->linkCheck->isChecked());
     settings.SetRefreshRate(ui->refreshBox->value());
 
+    Settings::Reasons reasons =  Settings::Reason::Undefined;
+
+    for(int i = 0;i < ui->reasonsLayout->count();i ++)
+    {
+        QCheckBox *checkBox = static_cast<QCheckBox *>(ui->reasonsLayout->itemAt(i)->widget());
+        if(checkBox != nullptr && checkBox->isChecked())
+        {
+            Settings::Reason reason = checkBox->property("enum").value<Settings::Reason>();
+            reasons |= reason;
+        }
+    }
+
+    settings.SetReasons(reasons);
+
     accept();
 }
