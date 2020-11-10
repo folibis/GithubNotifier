@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>github.svg</file>
+        <file>exit.svg</file>
+        <file>settings.svg</file>
+    </qresource>
+    <qresource prefix="/templates"/>
+</RCC>
